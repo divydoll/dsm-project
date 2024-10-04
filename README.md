@@ -452,3 +452,31 @@ UPDATE coaches SET assistant_coach_id = 2 WHERE coach_id = 19;
 UPDATE coaches SET assistant_coach_id = 1 WHERE coach_id = 20;
 UPDATE coaches SET assistant_coach_id = NULL WHERE coach_id = 1;
 UPDATE coaches SET assistant_coach_id = NULL WHERE coach_id = 2;
+
+
+-- Make a list of each country represented by a player, how many players represent each respective country, and how many goals they have scored
+select nationality, COUNT(f_name) AS num_players, SUM(goals) AS num_goals
+from players
+join playerStats on players.player_id = playerStats.player_id
+GROUP BY nationality;
+
+-- Show every coach that has a more wins than his mentor
+select mentee.cf_name, mentee.cl_name, mentee_team.wins, mentor.cf_name, mentor.cl_name, mentor_team.wins
+from coaches as mentee
+join coaches as mentor on mentee.coach_id = mentor.assistant_coach_id
+join teams as mentee_team on mentee.team_id = mentee_team.team_id
+join teams as mentor_team on mentor.team_id = mentor_team.team_id
+where mentee_team.wins > mentor_team.wins;
+
+-- Select the player from each team that has the most tackles
+select f_name, l_name, team_name, tackles
+from players
+join playerStats on players.player_id = playerStats.player_id
+join teams on players.team_id = teams.team_id
+where tackles =(
+	select max(tackles)
+    from players as player_sub
+    join playerStats on player_sub.player_id = playerStats.player_id
+    where players.team_id = player_sub.team_id
+    )
+Order by team_name;
