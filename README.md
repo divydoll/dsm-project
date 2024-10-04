@@ -460,6 +460,63 @@ from players
 join playerStats on players.player_id = playerStats.player_id
 GROUP BY nationality;
 
+#top 5 players with the most assists along with the teams they play for 
+select players.f_name, players.l_name, teams.team_name, playerStats.assists
+from players 
+join playerStats on players.player_id = playerStats.player_id 
+join teams on teams.team_id = players.team_id 
+order by playerStats.assists desc limit 5;
+
+#top scorers from each club 
+select players.f_name, players.l_name, teams.team_name, playerStats.goals
+from players 
+join playerStats on players.player_id = playerStats.player_id 
+join teams on teams.team_id = players.team_id 
+WHERE playerStats.goals = ( 
+	SELECT MAX(playerStats.goals) 
+ 	FROM playerStats 
+  	JOIN players ON playerStats.player_id = players.player_id 
+   	WHERE teams.team_id = players.team_id) 
+    	order by playerStats.goals desc;
+
+#Identifying matches where a team scored more goals than their average and what were their results, shots pg and passes pg were 
+SELECT matches.match_id, teams.team_name, matchStats.result, matchStats.shots_per_game, matchStats.pass_percentage 
+FROM matches 
+JOIN matchStats ON matches.match_id = matchStats.match_id 
+JOIN teams ON teams.team_id = matchStats.team_id 
+WHERE matchStats.goals_scored > ( 
+	SELECT AVG(matchStats.goals_scored) 
+ 	FROM matchStats 
+  	WHERE teams.team_id = matchStats.team_id );
+
+SELECT t.league, p.player_id, p.f_name, p.l_name, AVG(ms.goals_scored) AS avg_goals_per_match, AVG(ms.pass_percentage) AS avg_pass_percentage 
+FROM players p 
+JOIN teams t ON p.team_id = t.team_id 
+JOIN playerStats ps ON p.player_id = ps.player_id 
+JOIN match_team_pairings mtp ON t.team_id = mtp.team_id 
+JOIN matchStats ms ON mtp.match_id = ms.match_id 
+GROUP BY t.league, p.player_id, p.f_name, p.l_name 
+ORDER BY t.league, avg_goals_per_match DESC;
+
+select f_name, l_name, team_name, tackles 
+from players 
+join playerStats on players.player_id = playerStats.player_id 
+join teams on players.team_id = teams.team_id 
+where tackles =( select max(tackles) from players as player_sub 
+join playerStats on player_sub.player_id = playerStats.player_id 
+where players.team_id = player_sub.team_id ) 
+Order by team_name;
+
+SELECT players.f_name, players.l_name, teams.team_name, players.position 
+FROM players 
+JOIN teams ON players.team_id = teams.team_id 
+WHERE players.f_name = 'Lionel' AND players.l_name = 'Messi';
+
+SELECT SUM(playerStats.goals) 
+FROM playerStats 
+JOIN players ON playerStats.player_id = players.player_id 
+WHERE players.f_name = 'Lionel' AND players.l_name = 'Messi';
+
 -- Show every coach that has a more wins than his mentor
 select mentee.cf_name, mentee.cl_name, mentee_team.wins, mentor.cf_name, mentor.cl_name, mentor_team.wins
 from coaches as mentee
@@ -468,15 +525,9 @@ join teams as mentee_team on mentee.team_id = mentee_team.team_id
 join teams as mentor_team on mentor.team_id = mentor_team.team_id
 where mentee_team.wins > mentor_team.wins;
 
--- Select the player from each team that has the most tackles
-select f_name, l_name, team_name, tackles
-from players
-join playerStats on players.player_id = playerStats.player_id
-join teams on players.team_id = teams.team_id
-where tackles =(
-	select max(tackles)
-    from players as player_sub
-    join playerStats on player_sub.player_id = playerStats.player_id
-    where players.team_id = player_sub.team_id
-    )
-Order by team_name;
+#Retrieve the teams and the corresponding match ID for teams that competed against each other at Old Trafford on January 15, 2024, at 3:30 PM. 
+SELECT team_name, match_team_pairings.match_id 
+FROM teams 
+JOIN match_team_pairings ON teams.team_id = match_team_pairings.team_id 
+JOIN matches ON matches.match_id = match_team_pairings.match_id 
+WHERE matches.match_date = '2024-01-15' AND matches.match_time = '15:30:00' AND matches.match_loc = 'Old Trafford';
