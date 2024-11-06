@@ -57,4 +57,20 @@ We are building our model for Manchester City to scout future potential opponent
    		fouls_per_game
      		goals_scored
        		result
+Our data model shows the relationships between Coachs, Players, Teams, and their statistics. We also included a relationships between coaches and their proteges. This can help Manchester City determine who to hire next based on which coach produces the best assistants. We can also track our opponents and their star players
+
+**Data Dictionary**
+![image](https://github.com/user-attachments/assets/d7cfd964-25db-4f81-af93-56153443dedc)
+![image](https://github.com/user-attachments/assets/7e5866c1-1a9b-4427-8000-7fb4f09b52fc)
+![image](https://github.com/user-attachments/assets/65355de2-ba15-4485-93ea-697ea9220c77)
+![image](https://github.com/user-attachments/assets/ad1cccf3-8d23-4b0c-8ed6-95377caf68ee)
+![image](https://github.com/user-attachments/assets/8b2910b2-0cdb-4dfb-b2d6-a5fa30e037a9)
+![image](https://github.com/user-attachments/assets/0246e32a-c056-4059-ad47-f21e412eeb94)
+![image](https://github.com/user-attachments/assets/26ce1580-d8be-481a-8881-3da37f308015)
+
+
+
+
+
+
 
