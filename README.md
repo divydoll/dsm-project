@@ -60,6 +60,7 @@ We are building our model for Manchester City to scout future potential opponent
 Our data model shows the relationships between Coachs, Players, Teams, and their statistics. We also included a relationships between coaches and their proteges. This can help Manchester City determine who to hire next based on which coach produces the best assistants. We can also track our opponents and their star players
 
 **Data Dictionary**
+
 ![image](https://github.com/user-attachments/assets/d7cfd964-25db-4f81-af93-56153443dedc)
 ![image](https://github.com/user-attachments/assets/7e5866c1-1a9b-4427-8000-7fb4f09b52fc)
 ![image](https://github.com/user-attachments/assets/65355de2-ba15-4485-93ea-697ea9220c77)
