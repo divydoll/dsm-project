@@ -69,6 +69,7 @@ Our data model shows the relationships between Coachs, Players, Teams, and their
 ![image](https://github.com/user-attachments/assets/0246e32a-c056-4059-ad47-f21e412eeb94)
 ![image](https://github.com/user-attachments/assets/26ce1580-d8be-481a-8881-3da37f308015)
 
+**Ten Queries**
 
 
 
