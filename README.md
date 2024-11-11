@@ -2,7 +2,7 @@
 
 
 
-JT Warren: https://github.com/JTwarren88/MIST4610gp1
+JT Warren: https://github.com/JTwarren88/Project-1
 Charlie Mixson: https://github.com/cjm75885/Project-1
 Cassandra Albright: https://github.com/casalbright/MIST-4610-Project
 
